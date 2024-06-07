@@ -5,132 +5,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <meta charset="UTF-8">
     <style>
-        body {
-            position: relative;
-            background: linear-gradient(96deg, #610061, #bd36b6, #610061);
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            color: white;
-            overflow: hidden;
-        }
-
-        .header {
-            background-color: rgba(148, 4, 114, 1);
-            height: 50px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-        }
-
-        .header img {
-            height: 70%;
-        }
-
-        .image-right {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            max-width: 30%;
-            height: auto;
-            border-radius: 15px;
-            margin: 1%;
-            object-fit: cover;
-        }
-
-        .control-container {
-            position: absolute;
-            top: 54%;
-            left: 35%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            border-radius: 10px;
-            max-height: 70vh;
-            overflow: auto;
-            width: 60%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            border: none;
-            box-sizing: border-box;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
-        .form-label {
-            width: 100%;
-            text-align: left;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .form-group {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        .checkbox-button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .checkbox-button {
-            display: none;
-        }
-
-        .checkbox-button + label {
-            padding: 3% 4%;
-            background-color: rgba(209, 0, 192, 0.5);
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            border: 2px solid transparent;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        .checkbox-button:checked + label {
-            background-color: rgba(209, 0, 192, 0.8);
-            border-color: white;
-        }
-
-        .message-container {
-            width: 100%;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .send-button {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: rgba(209, 0, 192, 0.5);
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .send-button:hover {
-            background-color: rgba(209, 0, 192, 0.7);
-        }
+        /* Ваш CSS */
     </style>
 </head>
 <body>
@@ -185,68 +60,62 @@
     <div id="messageContainer" class="message-container"></div>
 
     <script>
-        document.getElementById('dataForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('dataForm').addEventListener('submit', function(e) {
+                e.preventDefault();
 
-            var form = e.target;
-            var formData = new FormData(form);
-            var data = {};
+                var form = e.target;
+                var formData = new FormData(form);
+                var data = {};
 
-            formData.forEach((value, key) => {
-                if (!data[key]) {
-                    data[key] = value;
-                } else {
-                    if (!Array.isArray(data[key])) {
-                        data[key] = [data[key]];
+                formData.forEach((value, key) => {
+                    if (!data[key]) {
+                        data[key] = value;
+                    } else {
+                        if (!Array.isArray(data[key])) {
+                            data[key] = [data[key]];
+                        }
+                        data[key].push(value);
                     }
-                    data[key].push(value);
+                });
+
+                var otherOptionCheckbox = document.getElementById('otherOptionCheckbox');
+                if (!otherOptionCheckbox.checked) {
+                    formData.delete('otherOption');
                 }
+
+                fetch('https://script.google.com/macros/s/AKfycbwzosMXzfxFuqf8MwqPUx0hQPPgW84A-ZnZvuSs9gL3T1mZrHjQxoGQBUzCdv6WtPlZFg/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(data)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    var messageContainer = document.getElementById('messageContainer');
+                    if (data.includes("Помилка")) {
+                        messageContainer.innerHTML = '<p style="color: red;">' + data + '</p>';
+                    } else {
+                        messageContainer.innerHTML = '<p style="color: green;">' + data + '</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Сталася помилка при надсиланні даних.');
+                });
             });
 
-            var otherOptionCheckbox = document.getElementById('otherOptionCheckbox');
-            if (!otherOptionCheckbox.checked) {
-                formData.delete('otherOption');
-            }
-
-            fetch('https://script.google.com/macros/s/AKfycbwzosMXzfxFuqf8MwqPUx0hQPPgW84A-ZnZvuSs9gL3T1mZrHjQxoGQBUzCdv6WtPlZFg/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(data)
-            })
-            .then(response => response.text())
-            .then(data => {
-                var messageContainer = document.getElementById('messageContainer');
-                if (data.includes("Помилка")) {
-                    messageContainer.innerHTML = '<p style="color: red;">' + data + '</p>';
+            document.getElementById('otherOptionCheckbox').addEventListener('change', function() {
+                var otherOptionContainer = document.getElementById('otherOptionContainer');
+                if (this.checked) {
+                    otherOptionContainer.style.display = 'block';
                 } else {
-                    messageContainer.innerHTML = '<p style="color: green;">' + data + '</p>';
+                    otherOptionContainer.style.display = 'none';
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Сталася помилка при надсиланні даних.');
             });
         });
-
-
-        document.getElementById('otherOptionCheckbox').addEventListener('change', function() {
-            var otherOptionContainer = document.getElementById('otherOptionContainer');
-            if (this.checked) {
-                otherOptionContainer.style.display = 'block';
-            } else {
-                otherOptionContainer.style.display = 'none';
-            }
-        });
     </script>
-
-<script type="text/javascript">
-    if (screen.width <= 767) {
-    document.location = "https://google.com";
-    }
-    </script>
-
 </div>
 
 <img src="voy.jpg" alt="Зображення номінації" class="image-right">
