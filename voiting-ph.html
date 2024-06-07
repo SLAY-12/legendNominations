@@ -169,6 +169,7 @@
     <div id="messageContainer" class="message-container"></div>
 
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('dataForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -224,6 +225,7 @@
                 otherOptionContainer.style.display = 'none';
             }
         });
+    }
     </script>
 </div>
 </body>
