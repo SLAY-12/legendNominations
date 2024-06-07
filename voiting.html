@@ -185,6 +185,7 @@
     <div id="messageContainer" class="message-container"></div>
 
     <script>
+        require('dotenv').config();
         const secretToken = process.env.SECRETTOKEN;
         document.getElementById('dataForm').addEventListener('submit', function(e) {
             e.preventDefault();
