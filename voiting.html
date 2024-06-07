@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <title>Легендарні номінації П-12</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <style>
+        body {
+            position: relative;
+            background: linear-gradient(96deg, #610061, #bd36b6, #610061);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: rgba(148, 4, 114, 1);
+            height: 50px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .header img {
+            height: 70%;
+        }
+
+        .image-right {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 30%;
+            height: auto;
+            border-radius: 15px;
+            margin: 1%;
+            object-fit: cover;
+        }
+
+        .control-container {
+            position: absolute;
+            top: 54%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 70vh;
+            overflow: auto;
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .form-label {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-button {
+            display: none;
+        }
+
+        .checkbox-button + label {
+            padding: 3% 4%;
+            background-color: rgba(209, 0, 192, 0.5);
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            border: 2px solid transparent;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .checkbox-button:checked + label {
+            background-color: rgba(209, 0, 192, 0.8);
+            border-color: white;
+        }
+
+        .message-container {
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .send-button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: rgba(209, 0, 192, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .send-button:hover {
+            background-color: rgba(209, 0, 192, 0.7);
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <img src="https://static.tildacdn.info/tild3430-3639-4666-a366-336435643365/noroot.png" alt="Логотип">
+</div>
+
+<div class="control-container">
+    <form id="dataForm">
+        <div class="form-group">
+            <label for="email" class="form-label">Введіть вашу електронну адресу:</label>
+            <input type="email" id="email" name="email" class="input-field" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Виберіть варіант:</label>
+            <div class="checkbox-button-group">
+                <input type="checkbox" name="options" value="Славіцька" id="option1" class="checkbox-button">
+                <label for="option1">Славіцька</label>
+
+                <input type="checkbox" name="options" value="Коляда" id="option2" class="checkbox-button">
+                <label for="option2">Коляда</label>
+
+                <input type="checkbox" name="options" value="Хоменко" id="option3" class="checkbox-button">
+                <label for="option3">Хоменко</label>
+
+                <input type="checkbox" name="options" value="Толочко" id="option4" class="checkbox-button">
+                <label for="option4">Толочко</label>
+
+                <input type="checkbox" name="options" value="Андрєєв" id="option5" class="checkbox-button">
+                <label for="option5">Андрєєв</label>
+
+                <input type="checkbox" name="options" value="Бачиш" id="option6" class="checkbox-button">
+                <label for="option6">Бачиш</label>
+
+                <input type="checkbox" name="options" value="Миронець" id="option7" class="checkbox-button">
+                <label for="option7">Миронець</label>
+
+                <input type="checkbox" name="options" value="Свій варіант" id="otherOptionCheckbox" class="checkbox-button">
+                <label for="otherOptionCheckbox">Ваш варіант</label>
+            </div>
+        </div>
+
+        <div id="otherOptionContainer" class="form-group" style="display: none;">
+            <label for="otherOption" class="form-label">Уважно слухаємо:</label>
+            <input type="text" id="otherOption" name="otherOption" class="input-field">
+        </div>
+
+        <button type="submit" class="send-button">Надіслати</button>
+    </form>
+
+    <div id="messageContainer" class="message-container"></div>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var form = e.target;
+            var formData = new FormData(form);
+            var data = {};
+
+            formData.forEach((value, key) => {
+                if (!data[key]) {
+                    data[key] = value;
+                } else {
+                    if (!Array.isArray(data[key])) {
+                        data[key] = [data[key]];
+                    }
+                    data[key].push(value);
+                }
+            });
+
+            // Only add 'otherOption' if the checkbox is checked
+            var otherOptionCheckbox = document.getElementById('otherOptionCheckbox');
+            if (!otherOptionCheckbox.checked) {
+                formData.delete('otherOption');
+            }
+
+            fetch(process.env.SECRETTOKEN, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data)
+            })
+            .then(response => response.text())
+            .then(data => {
+                var messageContainer = document.getElementById('messageContainer');
+                if (data.includes("Помилка")) {
+                    messageContainer.innerHTML = '<p style="color: red;">' + data + '</p>';
+                } else {
+                    messageContainer.innerHTML = '<p style="color: green;">' + data + '</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Сталася помилка при надсиланні даних.');
+            });
+        });
+
+        // Show/Hide "Other" option input field
+        document.getElementById('otherOptionCheckbox').addEventListener('change', function() {
+            var otherOptionContainer = document.getElementById('otherOptionContainer');
+            if (this.checked) {
+                otherOptionContainer.style.display = 'block';
+            } else {
+                otherOptionContainer.style.display = 'none';
+            }
+        });
+    </script>
+
+<script type="text/javascript">
+    if (screen.width <= 767) {
+    document.location = "https://google.com";
+    }
+    </script>
+
+</div>
+
+<img src="voy.jpg" alt="Зображення номінації" class="image-right">
+
+</body>
+</html>

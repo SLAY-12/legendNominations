@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <title>Легендарні номінації П-12</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <style>
+        body {
+            position: relative;
+            background: linear-gradient(96deg, #610061, #bd36b6, #610061);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 15%;
+            background: linear-gradient(45deg, #913091, #9b0593, #612061);
+        }
+
+        body::before {
+            left: 0;
+        }
+
+        body::after {
+            right: 0;
+        }
+
+        .nomination {
+            max-width: 25%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(25deg, #610061, #c710be, #911491);
+            padding: 10px;
+            border-radius: 5%;
+            margin: 20px 0;
+            z-index: 1;
+        }
+
+        .nomination-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+            overflow-y: auto;
+            padding-top: 20px;
+        }
+
+        .nomination img {
+            object-fit: contain;
+            width: 100%;
+            height: auto;
+            border-radius: 18%;
+        }
+
+        h1 {
+            margin: 60px 0 20px;
+            background: linear-gradient(23deg, #FFD700, #daad1b, #ffd000, #eed546, #ffc400);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 1;
+        }
+
+        .header {
+            background-color: rgba(148, 4, 114, 1);
+            height: 50px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .header img {
+            height: 70%; /* Вирівняємо висоту зображення відносно контейнера */
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <img src="https://static.tildacdn.info/tild3430-3639-4666-a366-336435643365/noroot.png" alt="Логотип">
+</div>
+
+<h1 style="background: linear-gradient(59deg, #ffd311, #ffcb20, #dbbd14, #ffc400, #eed546); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Легендарні номінації П-12</h1>
+
+<div class="nomination-container">
+    <div class="nomination">
+        <h2 style="text-align: center;">Викладач року</h2>
+        <img src="voy.jpg" alt="Зображення номінації">
+        <h4 style="text-align: center;">Викладач року - номінація, що має на меті з'ясувати, який викладач залишив найбільшого сліду в головах й серцях кожного студента, завзято пояснюючи матеріал на 10-тій хвилині перерви!</h4>
+    </div>
+
+    <div class="nomination">
+        <h2 style="text-align: center;">Момент року</h2>
+        <img src="moy.jpg" alt="Зображення номінації">
+        <h4 style="text-align: center;">Будь-то смішний, чи неочікуваний, момент, що для вас є моментом всього року, спогади про який найбільше гріють, чи викликають сміх.</h4>
+    </div>
+
+    <div class="nomination">
+        <h2 style="text-align: center; background: linear-gradient(4deg, #FFD700, #daad1b, #ffd000, #eed546, #ffc400); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: fantasy;">Студент року</h2>
+        <img src="soy.jpg" alt="Зображення номінації">
+        <h4 style="text-align: center;">Cтудент року. Всім студентам студент, що своєю студенчистю перестудив й вистудентив всіх. Істинна легенда цього року.</h4>
+    </div>
+</div>
+
+</body>
+</html>
