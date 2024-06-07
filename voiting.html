@@ -185,6 +185,7 @@
     <div id="messageContainer" class="message-container"></div>
 
     <script>
+        const secretToken = process.env.SECRETTOKEN;
         document.getElementById('dataForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -203,13 +204,12 @@
                 }
             });
 
-            // Only add 'otherOption' if the checkbox is checked
             var otherOptionCheckbox = document.getElementById('otherOptionCheckbox');
             if (!otherOptionCheckbox.checked) {
                 formData.delete('otherOption');
             }
 
-            fetch(process.env.SECRETTOKEN, {
+            fetch(secretToken, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -231,7 +231,7 @@
             });
         });
 
-        // Show/Hide "Other" option input field
+
         document.getElementById('otherOptionCheckbox').addEventListener('change', function() {
             var otherOptionContainer = document.getElementById('otherOptionContainer');
             if (this.checked) {
