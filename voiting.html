@@ -204,6 +204,13 @@
                     }
                 });
 
+                var email = document.getElementById('email').value;
+                if (!email.endsWith('@kfccte-nau.ukr.education')) {
+                    var messageContainer = document.getElementById('messageContainer');
+                    messageContainer.innerHTML = '<p style="color: red;">Помилка - пошти з цього домену не приймаються. Використовуйте навчальну пошту.</p>';
+                    return;
+                }
+
                 var otherOptionCheckbox = document.getElementById('otherOptionCheckbox');
                 if (!otherOptionCheckbox.checked) {
                     formData.delete('otherOption');
@@ -240,9 +247,7 @@
                 }
             });
         });
-    </script>
 
-    <script type="text/javascript">
         if (screen.width <= 767) {
             document.location = "https://slay-12.github.io/legendNominations/voiting-ph.html";
         }
