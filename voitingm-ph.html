@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <title>Легендарні номінації П-12</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: linear-gradient(96deg, #610061, #bd36b6, #610061);
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .header {
+            background-color: rgba(148, 4, 114, 1);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .header img {
+            height: 40px;
+        }
+
+        .control-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .form-label {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-button {
+            display: none;
+        }
+
+        .checkbox-button + label {
+            padding: 10px;
+            background-color: rgba(209, 0, 192, 0.5);
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            border: 2px solid transparent;
+            transition: background-color 0.3s, border-color 0.3s;
+            text-align: center;
+        }
+
+        .checkbox-button:checked + label {
+            background-color: rgba(209, 0, 192, 0.8);
+            border-color: white;
+        }
+
+        .message-container {
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .send-button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: rgba(209, 0, 192, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .send-button:hover {
+            background-color: rgba(209, 0, 192, 0.7);
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <img src="https://static.tildacdn.info/tild3430-3639-4666-a366-336435643365/noroot.png" alt="Логотип">
+</div>
+
+<div class="control-container">
+    <form id="dataForm">
+        <div class="form-group">
+            <label for="email" class="form-label">Введіть вашу електронну адресу:</label>
+            <input type="email" id="email" name="email" class="input-field" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Виберіть варіант:</label>
+            <div class="checkbox-button-group">
+                <input type="checkbox" name="options" value="Смик Савіна" id="option1" class="checkbox-button">
+                <label for="option1">Смик Савіна</label>
+
+                <input type="checkbox" name="options" value="Перша зустріч студентів" id="option2" class="checkbox-button">
+                <label for="option2">Перша зустріч студентів</label>
+
+                <input type="checkbox" name="options" value="SLAY" id="option3" class="checkbox-button">
+                <label for="option3">SLAY</label>
+
+                <input type="checkbox" name="options" value="Звук Ядвіга" id="option4" class="checkbox-button">
+                <label for="option4">Звук Ядвіга</label>
+
+                <input type="checkbox" name="options" value="Руханка Нескінченності" id="option5" class="checkbox-button">
+                <label for="option5">Руханка Нескінченності</label>
+
+                <input type="checkbox" name="options" value="Звільнення Андрєєва" id="option6" class="checkbox-button">
+                <label for="option6">Звільнення Андрєєва</label>
+
+                <input type="checkbox" name="options" value="Перша рубіжка" id="option7" class="checkbox-button">
+                <label for="option7">Перша рубіжка</label>
+
+                <input type="checkbox" name="options" value="8 Березня" id="option8" class="checkbox-button">
+                <label for="option8">8 Березня</label>
+
+                <input type="checkbox" name="options" value="Город Мизрова" id="option9" class="checkbox-button">
+                <label for="option9">Город Мизрова</label>
+
+                <input type="checkbox" name="options" value="Свій варіант" id="otherOptionCheckbox" class="checkbox-button">
+                <label for="otherOptionCheckbox">Ваш варіант</label>
+            </div>
+        </div>
+
+        <div id="otherOptionContainer" class="form-group" style="display: none;">
+            <label for="otherOption" class="form-label">Уважно слухаємо:</label>
+            <input type="text" id="otherOption" name="otherOption" class="input-field">
+        </div>
+
+        <button type="submit" class="send-button">Надіслати</button>
+    </form>
+
+    <div id="messageContainer" class="message-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('dataForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                var form = e.target;
+                var formData = new FormData(form);
+                var data = {};
+
+                formData.forEach((value, key) => {
+                    if (!data[key]) {
+                        data[key] = value;
+                    } else {
+                        if (!Array.isArray(data[key])) {
+                            data[key] = [data[key]];
+                        }
+                        data[key].push(value);
+                    }
+                });
+
+                var email = document.getElementById('email').value;
+                if (!email.endsWith('@kfccte-nau.ukr.education')) {
+                    var messageContainer = document.getElementById('messageContainer');
+                    messageContainer.innerHTML = '<p style="color: red;">Помилка - пошти з цього домену не приймаються. Використовуйте навчальну пошту.</p>';
+                    return;
+                }
+
+                var otherOptionCheckbox = document.getElementById('otherOptionCheckbox');
+                if (!otherOptionCheckbox.checked) {
+                    formData.delete('otherOption');
+                }
+
+                fetch('https://script.google.com/macros/s/AKfycbwzosMXzfxFuqf8MwqPUx0hQPPgW84A-ZnZvuSs9gL3T1mZrHjQxoGQBUzCdv6WtPlZFg/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(data)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    var messageContainer = document.getElementById('messageContainer');
+                    if (data.includes("Помилка")) {
+                        messageContainer.innerHTML = '<p style="color: red;">' + data + '</p>';
+                    } else {
+                        messageContainer.innerHTML = '<p style="color: green;">' + data + '</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Сталася помилка при надсиланні даних.');
+                });
+            });
+
+            document.getElementById('otherOptionCheckbox').addEventListener('change', function() {
+                var otherOptionContainer = document.getElementById('otherOptionContainer');
+                if (this.checked) {
+                    otherOptionContainer.style.display = 'block';
+                } else {
+                    otherOptionContainer.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</div>
+</body>
+</html>
