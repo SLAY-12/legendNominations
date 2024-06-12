@@ -201,71 +201,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('dataForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                var form = e.target;
-                var formData = new FormData(form);
-                var data = {};
-
-                formData.forEach((value, key) => {
-                    if (!data[key]) {
-                        data[key] = value;
-                    } else {
-                        if (!Array.isArray(data[key])) {
-                            data[key] = [data[key]];
-                        }
-                        data[key].push(value);
-                    }
-                });
-
-                var email = document.getElementById('email').value;
-                if (!email.endsWith('@kfccte-nau.ukr.education')) {
-                    var messageContainer = document.getElementById('messageContainer');
-                    messageContainer.innerHTML = '<p style="color: red;">Помилка - пошти з цього домену не приймаються. Використовуйте навчальну пошту.</p>';
-                    return;
-                }
-
-                var otherOptionCheckbox = document.getElementById('otherOptionCheckbox');
-                if (!otherOptionCheckbox.checked) {
-                    formData.delete('otherOption');
-                }
-
-                fetch('https://script.google.com/macros/s/AKfycbwPOj8WbixzMNbKR2StpPJEbtm1N0ODEu8mZ-ByQ5SxdR1lFZYvSgQdvvR0DQk7Qn2SpQ/exec', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams(data)
-                })
-                .then(response => response.text())
-                .then(data => {
-                    var messageContainer = document.getElementById('messageContainer');
-                    if (data.includes("Помилка")) {
-                        messageContainer.innerHTML = '<p style="color: red;">' + data + '</p>';
-                    } else {
-                        messageContainer.innerHTML = '<p style="color: green;">' + data + '</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Сталася помилка при надсиланні даних.');
-                });
-            });
-
-            document.getElementById('otherOptionCheckbox').addEventListener('change', function() {
-                var otherOptionContainer = document.getElementById('otherOptionContainer');
-                if (this.checked) {
-                    otherOptionContainer.style.display = 'block';
-                } else {
-                    otherOptionContainer.style.display = 'none';
-                }
+            var inputs = document.querySelectorAll('input, button');
+            inputs.forEach(function(input) {
+                input.disabled = true;
             });
         });
-
-        if (screen.width <= 767) {
-            document.location = "https://slay-12.github.io/legendNominations/voitings-ph.html";
-        }
     </script>
 </div>
 
